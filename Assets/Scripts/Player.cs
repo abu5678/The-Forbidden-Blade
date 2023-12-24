@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float moveSpeed = 8f;
+    public float jumpForce;
 
     #region Components
     public Animator animator { get; private set; }
@@ -13,9 +14,10 @@ public class Player : MonoBehaviour
 
     #region states
     public PlayerStateMachine stateMachine { get; private set; }
-    
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
+    public PlayerAirState airState { get; private set; }
+    public PlayerJumpState jumpState { get; private set; }
     #endregion
 
     //initialises variables before game starts
@@ -24,6 +26,8 @@ public class Player : MonoBehaviour
         stateMachine = new PlayerStateMachine();
         idleState = new PlayerIdleState(stateMachine,this,"Idle");
         moveState = new PlayerMoveState(stateMachine,this, "Move");
+        jumpState = new PlayerJumpState(stateMachine, this, "Jump");
+        airState = new PlayerAirState(stateMachine, this, "Jump");
 
     }
 

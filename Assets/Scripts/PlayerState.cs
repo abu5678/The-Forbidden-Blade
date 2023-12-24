@@ -19,15 +19,18 @@ public class PlayerState
     }
     public virtual void Enter()
     {
+        //makes the boolean linked to the animation we want to play  true so the animation will start
         player.animator.SetBool(animBoolName, true);
         rigidbody2D = player.rigidbody2D;
     }
     public virtual void Update()
     {
+        //gets the horizontal input from the user
         xInput = Input.GetAxis("Horizontal");
     }
     public virtual void Exit()
     {
+        //makes the boolean linked to the animation false so that the animation stops playing
         player.animator.SetBool(animBoolName, false);
 
     }

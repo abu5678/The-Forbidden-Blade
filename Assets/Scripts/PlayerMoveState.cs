@@ -22,7 +22,10 @@ public class PlayerMoveState : PlayerState
     {
         base.Update();
 
+        //makes the player can move left and right
         player.setVelocity(xInput *  player.moveSpeed,rigidbody2D.velocity.y);
+
+        //checks to see if the player is standing still and not moving left or right
         if (xInput == 0)
             stateMachine.ChangeState(player.idleState);
     }

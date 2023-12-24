@@ -5,16 +5,20 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float moveSpeed = 8f;
+
+    #region Components
     public Animator animator { get; private set; }
     public Rigidbody2D rigidbody2D { get; private set; }
+    #endregion
 
-
+    #region states
     public PlayerStateMachine stateMachine { get; private set; }
     
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
-    
+    #endregion
 
+    //initialises variables before game starts
     public void Awake()
     {
         stateMachine = new PlayerStateMachine();
@@ -25,10 +29,12 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponentInChildren<Animator>();  
-        //sets the player to its starting state
-        stateMachine.Initialise(idleState);
         rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>(); 
+        
+        //sets the player to its starting state which is idle
+        stateMachine.Initialise(idleState);
+        
     }
 
     private void Update()
@@ -36,6 +42,7 @@ public class Player : MonoBehaviour
          stateMachine.currentState.Update();
     }
 
+    //makes it so that the player can move left,right,up and down
     public void setVelocity(float xVelocity,float yVelocity)
     {
         rigidbody2D.velocity = new Vector2 (xVelocity,yVelocity);

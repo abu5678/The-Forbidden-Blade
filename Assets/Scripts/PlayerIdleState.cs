@@ -21,6 +21,8 @@ public class PlayerIdleState : PlayerState
     public override void Update()
     {
         base.Update();
+
+        //checks to see if the player is moving left or right
         if (xInput != 0)
             stateMachine.ChangeState(player.moveState);
     }

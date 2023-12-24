@@ -21,8 +21,8 @@ public class PlayerAirState : PlayerState
     public override void Update()
     {
         base.Update();
-        //check to see if the player is not jumping or falling,which means they are on the ground
-        if (rigidbody2D.velocity.y == 0)
+        //check to see if the player has reached the ground
+        if (player.IsGroundDetected())
             stateMachine.ChangeState(player.idleState);
     }
 }

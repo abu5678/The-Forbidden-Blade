@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region movement
     public float moveSpeed = 8f;
     public float jumpForce;
+    #endregion
+
+    #region collision checks
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckDistance;
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private float wallCheckDistance;
+    [SerializeField] private LayerMask whatIsGround;
+    #endregion
 
     #region Components
     public Animator animator { get; private set; }
@@ -50,5 +60,18 @@ public class Player : MonoBehaviour
     public void setVelocity(float xVelocity,float yVelocity)
     {
         rigidbody2D.velocity = new Vector2 (xVelocity,yVelocity);
+    }
+
+    //check if the player is on the ground
+    public bool IsGroundDetected()
+    {
+        return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
+    }
+    private void OnDrawGizmos()
+    {
+        //creates a line to be used to check collisions with the floor
+        Gizmos.DrawLine(groundCheck.position,new Vector2(groundCheck.position.x,groundCheck.position.y - groundCheckDistance));
+        //creates a line to be used to check collisions with walls
+        Gizmos.DrawLine(wallCheck.position,new Vector2(wallCheck.position.x + wallCheckDistance,wallCheck.position.y));
     }
 }

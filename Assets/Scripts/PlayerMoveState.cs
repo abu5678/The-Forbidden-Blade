@@ -21,5 +21,9 @@ public class PlayerMoveState : PlayerState
     public override void Update()
     {
         base.Update();
+
+        player.setVelocity(xInput *  player.moveSpeed,rigidbody2D.velocity.y);
+        if (xInput == 0)
+            stateMachine.ChangeState(player.idleState);
     }
 }

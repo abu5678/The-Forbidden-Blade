@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     public float jumpForce;
     #endregion
 
+    public int facingDir { get; private set; } = 1;
+    public bool facingRight = true;
+
     #region collision checks
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckDistance;
@@ -60,6 +63,7 @@ public class Player : MonoBehaviour
     public void setVelocity(float xVelocity,float yVelocity)
     {
         rigidbody2D.velocity = new Vector2 (xVelocity,yVelocity);
+        FlipController(xVelocity);
     }
 
     //check if the player is on the ground
@@ -73,5 +77,23 @@ public class Player : MonoBehaviour
         Gizmos.DrawLine(groundCheck.position,new Vector2(groundCheck.position.x,groundCheck.position.y - groundCheckDistance));
         //creates a line to be used to check collisions with walls
         Gizmos.DrawLine(wallCheck.position,new Vector2(wallCheck.position.x + wallCheckDistance,wallCheck.position.y));
+    }
+
+    public void FlipPlayer()
+    {
+        facingDir = facingDir * -1;
+        facingRight = !facingRight;
+        transform.Rotate(0, 180, 0);
+    }
+    public void FlipController(float x)
+    {
+        if(facingRight && x < 0)
+        {
+            FlipPlayer();
+        }
+        else if (!facingRight && x > 0)
+        {
+            FlipPlayer();
+        }
     }
 }

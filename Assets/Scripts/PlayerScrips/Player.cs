@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
     #region Attacks
     [Header("Attack Info")]
@@ -16,9 +16,6 @@ public class Player : MonoBehaviour
     public float moveSpeed = 8f;
     public float jumpForce;
 
-    public int facingDir { get; private set; } = 1;
-    public bool facingRight = true;
-
     [Header("Dash Info")]
     [SerializeField] private float dashCooldown;
     private float dashTimer;
@@ -28,20 +25,6 @@ public class Player : MonoBehaviour
     
 
 
-    #endregion
-
-    #region collision checks
-    [Header("Collsion Info")]
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckDistance;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private float wallCheckDistance;
-    [SerializeField] private LayerMask whatIsGround;
-    #endregion
-
-    #region Components
-    public Animator animator { get; private set; }
-    public Rigidbody2D rigidbody2D { get; private set; }
     #endregion
 
     #region states
@@ -54,11 +37,13 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState wallSlideState { get; private set; }
     public PlayerWallJumpState wallJumpState { get; private set; }
     public PlayerPrimaryAttackState primaryAttackState { get; private set; }
-    
+
 
     //initialises variables before game starts
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         stateMachine = new PlayerStateMachine();
         idleState = new PlayerIdleState(stateMachine,this,"Idle");
         moveState = new PlayerMoveState(stateMachine,this, "Move");
@@ -72,19 +57,20 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    private void Start()
+    protected override void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>(); 
-        
+        base.Start();
+
         //sets the player to its starting state which is idle
         stateMachine.Initialise(idleState);
         
     }
 
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         stateMachine.currentState.Update();
         checkForDashInput(); 
     }
@@ -125,54 +111,4 @@ public class Player : MonoBehaviour
         }
     }
 
-    //makes the character stop moving
-    public void ZeroVelocity()
-    {
-        rigidbody2D.velocity = new Vector2(0, 0);
-    }
-    //makes it so that the player can move left,right,up and down
-    public void setVelocity(float xVelocity,float yVelocity)
-    {
-        rigidbody2D.velocity = new Vector2 (xVelocity,yVelocity);
-        FlipController(xVelocity);
-    }
-    #region collision detection
-    //check if the player is on the ground
-    public bool IsGroundDetected()
-    {
-        return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
-    }
-
-    //checks to see if the player is hitting a wall
-    public bool isWallDetected()
-    {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
-    }
-    private void OnDrawGizmos()
-    {
-        //creates a line to be used to check collisions with the floor
-        Gizmos.DrawLine(groundCheck.position,new Vector2(groundCheck.position.x,groundCheck.position.y - groundCheckDistance));
-        //creates a line to be used to check collisions with walls
-        Gizmos.DrawLine(wallCheck.position,new Vector2(wallCheck.position.x + wallCheckDistance,wallCheck.position.y));
-    }
-    #endregion
-    #region flip player
-    public void FlipPlayer()
-    {
-        facingDir = facingDir * -1;
-        facingRight = !facingRight;
-        transform.Rotate(0, 180, 0);
-    }
-    public void FlipController(float x)
-    {
-        if(facingRight && x < 0)
-        {
-            FlipPlayer();
-        }
-        else if (!facingRight && x > 0)
-        {
-            FlipPlayer();
-        }
-    }
-    #endregion
 }

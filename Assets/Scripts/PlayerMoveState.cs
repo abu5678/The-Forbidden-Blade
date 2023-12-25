@@ -25,8 +25,8 @@ public class PlayerMoveState : PlayerGroundedState
         //makes the player can move left and right
         player.setVelocity(xInput *  player.moveSpeed,rigidbody2D.velocity.y);
 
-        //checks to see if the player is standing still and not moving left or right
-        if (xInput == 0)
+        //if the player is standing still and not moving left or right or is hitting the wall to become idle
+        if (xInput == 0 || player.isWallDetected())
             stateMachine.ChangeState(player.idleState);
     }
 }

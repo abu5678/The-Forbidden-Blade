@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     public PlayerJumpState jumpState { get; private set; }
     public PlayerDashState dashState { get; private set; }
     public PlayerWallSlideState wallSlideState { get; private set; }
+    public PlayerWallJumpState wallJumpState { get; private set; }
     #endregion
 
     //initialises variables before game starts
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
         airState = new PlayerAirState(stateMachine, this, "Jump");
         dashState = new PlayerDashState(stateMachine, this, "Dash");
         wallSlideState = new PlayerWallSlideState(stateMachine, this, "WallSlide");
+        wallJumpState = new PlayerWallJumpState(stateMachine, this, "Jump");
 
     }
 
@@ -73,6 +75,10 @@ public class Player : MonoBehaviour
 
     private void checkForDashInput()
     {
+        //makes it so that the player cannot dash if they are wall sliding
+        if (isWallDetected())
+            return;
+
         dashTimer -= Time.deltaTime;
         //dashTimer < 0 checks if the dash is available and off cooldown
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0)

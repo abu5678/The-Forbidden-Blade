@@ -11,6 +11,7 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        rigidbody2D.velocity = new Vector2(0, 0);
     }
 
     public override void Exit()
@@ -22,8 +23,9 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.Update();
 
-        //if (xInput == player.facingDir && player.isWallDetected())
-            //return;
+        //the player cannot run into a wall 
+        if (xInput == player.facingDir && player.isWallDetected())
+            return;
 
         //checks to see if the player is moving left or right
         if (xInput != 0)

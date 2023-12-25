@@ -12,7 +12,7 @@ public class PlayerDashState : PlayerState
     {
         base.Enter();
         //makes it so that the timer is as long as the dash duration
-        dashStateTimer = player.dashDuration;
+        StateTimer = player.dashDuration;
     }
 
     public override void Exit()
@@ -25,10 +25,15 @@ public class PlayerDashState : PlayerState
     public override void Update()
     {
         base.Update();
+
+        //if the player dashes onto a wall they will wall slide
+        if (!player.IsGroundDetected() && player.isWallDetected())
+            stateMachine.ChangeState(player.wallSlideState);
+
         //makes the player dash forward
         player.setVelocity(player.dashSpeed * player.dashDir,0);
         //checking if dash is finished
-        if (dashStateTimer < 0)
+        if (StateTimer < 0)
             stateMachine.ChangeState(player.idleState);
     }
 }

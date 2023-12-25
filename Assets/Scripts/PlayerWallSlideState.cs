@@ -21,6 +21,14 @@ public class PlayerWallSlideState : PlayerState
     public override void Update()
     {
         base.Update();
+
+        //if the player presses space while wall sliding they will perform a wall jump
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            stateMachine.ChangeState(player.wallJumpState);
+            return;
+        }
+
         //if the player gets off the wall they will return to idle state
         if (xInput != 0 && player.facingDir != xInput)
             stateMachine.ChangeState(player.idleState);

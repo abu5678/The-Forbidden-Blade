@@ -11,7 +11,7 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-        rigidbody2D.velocity = new Vector2(0, 0);
+        player.ZeroVelocity();
     }
 
     public override void Exit()
@@ -27,8 +27,8 @@ public class PlayerIdleState : PlayerGroundedState
         if (xInput == player.facingDir && player.isWallDetected())
             return;
 
-        //checks to see if the player is moving left or right
-        if (xInput != 0)
+        //checks to see if the player is moving left or right and is not performing an action like attacking
+        if (xInput != 0 && !player.isBusy)
             stateMachine.ChangeState(player.moveState);
     }
 }

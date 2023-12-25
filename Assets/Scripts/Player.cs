@@ -4,21 +4,34 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Attacks
+    [Header("Attack Info")]
+    public Vector2[] attackMovement;
+    #endregion
+
+    public bool isBusy {  get; private set; }
+
+    [Header("Move Info")]
     #region movement
     public float moveSpeed = 8f;
     public float jumpForce;
 
+    public int facingDir { get; private set; } = 1;
+    public bool facingRight = true;
+
+    [Header("Dash Info")]
     [SerializeField] private float dashCooldown;
     private float dashTimer;
     public float dashSpeed;
     public float dashDuration;
     public float dashDir { get; private set;}
+    
+
+
     #endregion
 
-    public int facingDir { get; private set; } = 1;
-    public bool facingRight = true;
-
     #region collision checks
+    [Header("Collsion Info")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private Transform wallCheck;
@@ -41,7 +54,7 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState wallSlideState { get; private set; }
     public PlayerWallJumpState wallJumpState { get; private set; }
     public PlayerPrimaryAttackState primaryAttackState { get; private set; }
-    #endregion
+    
 
     //initialises variables before game starts
     public void Awake()
@@ -57,6 +70,7 @@ public class Player : MonoBehaviour
         primaryAttackState = new PlayerPrimaryAttackState(stateMachine, this, "Attack");
 
     }
+    #endregion
 
     private void Start()
     {
@@ -75,9 +89,22 @@ public class Player : MonoBehaviour
         checkForDashInput(); 
     }
 
-    //calls animationFinishTrigger to notify that the animation has finished
-    public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+    //used to make sure certain actions cannot be done at the same time
+    public IEnumerator BusyFor(float seconds)
+    {
+        isBusy = true;
 
+        //after a certain amount of time isBusy will become false
+        yield return new WaitForSeconds(seconds);
+
+        isBusy = false;
+    }
+
+    //calls animationFinishTrigger to notify that the animation has finished
+    public void AnimationTrigger()
+    {
+        stateMachine.currentState.AnimationFinishTrigger();
+    }
     private void checkForDashInput()
     {
         //makes it so that the player cannot dash if they are wall sliding
@@ -97,13 +124,19 @@ public class Player : MonoBehaviour
             stateMachine.ChangeState(dashState);
         }
     }
+
+    //makes the character stop moving
+    public void ZeroVelocity()
+    {
+        rigidbody2D.velocity = new Vector2(0, 0);
+    }
     //makes it so that the player can move left,right,up and down
     public void setVelocity(float xVelocity,float yVelocity)
     {
         rigidbody2D.velocity = new Vector2 (xVelocity,yVelocity);
         FlipController(xVelocity);
     }
-
+    #region collision detection
     //check if the player is on the ground
     public bool IsGroundDetected()
     {
@@ -122,7 +155,8 @@ public class Player : MonoBehaviour
         //creates a line to be used to check collisions with walls
         Gizmos.DrawLine(wallCheck.position,new Vector2(wallCheck.position.x + wallCheckDistance,wallCheck.position.y));
     }
-
+    #endregion
+    #region flip player
     public void FlipPlayer()
     {
         facingDir = facingDir * -1;
@@ -140,4 +174,5 @@ public class Player : MonoBehaviour
             FlipPlayer();
         }
     }
+    #endregion
 }

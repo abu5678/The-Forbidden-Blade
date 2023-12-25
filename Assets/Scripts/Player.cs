@@ -7,6 +7,12 @@ public class Player : MonoBehaviour
     #region movement
     public float moveSpeed = 8f;
     public float jumpForce;
+
+    [SerializeField] private float dashCooldown;
+    private float dashTimer;
+    public float dashSpeed;
+    public float dashDuration;
+    public float dashDir { get; private set;}
     #endregion
 
     public int facingDir { get; private set; } = 1;
@@ -31,6 +37,7 @@ public class Player : MonoBehaviour
     public PlayerMoveState moveState { get; private set; }
     public PlayerAirState airState { get; private set; }
     public PlayerJumpState jumpState { get; private set; }
+    public PlayerDashState dashState { get; private set; }
     #endregion
 
     //initialises variables before game starts
@@ -41,6 +48,7 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(stateMachine,this, "Move");
         jumpState = new PlayerJumpState(stateMachine, this, "Jump");
         airState = new PlayerAirState(stateMachine, this, "Jump");
+        dashState = new PlayerDashState(stateMachine, this, "Dash"); 
 
     }
 
@@ -54,11 +62,28 @@ public class Player : MonoBehaviour
         
     }
 
+
     private void Update()
     {
-         stateMachine.currentState.Update();
+        stateMachine.currentState.Update();
+        checkForDashInput(); 
     }
 
+    private void checkForDashInput()
+    {
+        dashTimer -= Time.deltaTime;
+        //dashTimer < 0 checks if the dash is available and off cooldown
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0)
+        {
+            //resets dash cooldown
+            dashTimer = dashCooldown;
+            dashDir = Input.GetAxisRaw("Horizontal");
+            //check to see if the player is not moving then to dash the direction they are facing
+            if (dashDir == 0)
+                dashDir = facingDir;
+            stateMachine.ChangeState(dashState);
+        }
+    }
     //makes it so that the player can move left,right,up and down
     public void setVelocity(float xVelocity,float yVelocity)
     {

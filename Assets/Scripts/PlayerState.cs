@@ -11,6 +11,7 @@ public class PlayerState
     protected Rigidbody2D rigidbody2D;
 
     protected float xInput;
+    protected float dashStateTimer;
     public PlayerState(PlayerStateMachine _stateMachine, Player _player, string _animBoolName)
     {
         this.stateMachine = _stateMachine;
@@ -25,6 +26,8 @@ public class PlayerState
     }
     public virtual void Update()
     {
+        //makes the dash time tick down
+        dashStateTimer -= Time.deltaTime;
         //gets the horizontal input from the user
         xInput = Input.GetAxis("Horizontal");
 

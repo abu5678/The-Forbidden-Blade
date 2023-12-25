@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
         checkForDashInput(); 
     }
 
+    //calls animationFinishTrigger to notify that the animation has finished
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 
     private void checkForDashInput()

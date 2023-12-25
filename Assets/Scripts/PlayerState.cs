@@ -45,6 +45,7 @@ public class PlayerState
 
     }
 
+    //when an animation is finished this method will be called 
     public virtual void AnimationFinishTrigger()
     {
         triggerCalled = true;

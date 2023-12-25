@@ -21,9 +21,10 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+        //while the player is on the ground they can attack by pressing left click
         if (Input.GetKeyDown(KeyCode.Mouse0))
             stateMachine.ChangeState(player.primaryAttackState);
-
+        //checks if the player is on the ground
         if (!player.IsGroundDetected())
             stateMachine.ChangeState(player.airState);
         //if the user presses space the player will jump only if they are on the ground

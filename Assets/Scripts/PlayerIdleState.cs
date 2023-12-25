@@ -22,6 +22,9 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.Update();
 
+        //if (xInput == player.facingDir && player.isWallDetected())
+            //return;
+
         //checks to see if the player is moving left or right
         if (xInput != 0)
             stateMachine.ChangeState(player.moveState);

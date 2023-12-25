@@ -21,6 +21,9 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            stateMachine.ChangeState(player.primaryAttackState);
+
         if (!player.IsGroundDetected())
             stateMachine.ChangeState(player.airState);
         //if the user presses space the player will jump only if they are on the ground

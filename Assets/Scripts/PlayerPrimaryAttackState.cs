@@ -20,10 +20,15 @@ public class PlayerPrimaryAttackState : PlayerState
             comboCounter = 0;
         player.animator.SetInteger("ComboCounter", comboCounter);
 
+        //lets the player switch directions when attacking
+        float attackDir = player.facingDir;
+        if (xInput !=0)
+            attackDir = xInput;
+
         //when the player attacks there is a little step they can do
         StateTimer = 0.1f;
         //makes it so that the player will move forward different amounts depending on what part of the combo they are on
-        player.setVelocity(player.attackMovement[comboCounter].x * player.facingDir, rigidbody2D.velocity.y);
+        player.setVelocity(player.attackMovement[comboCounter].x * attackDir, rigidbody2D.velocity.y);
     }
 
     public override void Exit()

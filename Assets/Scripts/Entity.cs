@@ -7,8 +7,10 @@ using UnityEngine;
 //for both players and enemies since they share alot
 public class Entity : MonoBehaviour
 {
-  
-    
+    [Header("Knockback Infor")]
+    [SerializeField] protected Vector2 KnockbackDirection;
+    [SerializeField] protected float knockbackDuration;
+    protected bool isKnocked;
     #region collision checks
     [Header("Collsion Info")]
     public Transform attackCheck;
@@ -23,6 +25,7 @@ public class Entity : MonoBehaviour
     #region Components
     public Animator animator { get; private set; }
     public Rigidbody2D rigidbody2D { get; private set; }
+    public EntityFX entityFX { get; private set; }
     #endregion
 
     public int facingDir { get; private set; } = 1;
@@ -38,6 +41,7 @@ public class Entity : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        entityFX = GetComponentInChildren<EntityFX>();
     }
 
     protected virtual void Update()
@@ -47,7 +51,19 @@ public class Entity : MonoBehaviour
 
     public virtual void Damage()
     {
+        entityFX.StartCoroutine("flashFX");
+        StartCoroutine("HitKnockback");
+    }
 
+    protected virtual IEnumerator HitKnockback()
+    {
+        isKnocked = true;
+        //when the character is knocked they will move back for a short time
+        rigidbody2D.velocity = new Vector2(KnockbackDirection.x * -facingDir, KnockbackDirection.y);
+
+        yield return new WaitForSeconds(knockbackDuration);
+
+        isKnocked = false;
     }
 
     #region collision detection
@@ -97,11 +113,20 @@ public class Entity : MonoBehaviour
     //makes the character stop moving
     public void setZeroVelocity()
     {
+        //make it so that they do not stop moving if knocked
+        if (isKnocked)
+            return;
+        //stops the character moving
         rigidbody2D.velocity = new Vector2(0, 0);
     }
     //makes it so that the character can move left,right,up and down
     public void setVelocity(float xVelocity, float yVelocity)
     {
+        //make it so that the character cant move while knocked
+        if (isKnocked)
+            return;
+
+        //make it so that the character moves and make it face the correct direction 
         rigidbody2D.velocity = new Vector2(xVelocity, yVelocity);
         FlipController(xVelocity);
     }

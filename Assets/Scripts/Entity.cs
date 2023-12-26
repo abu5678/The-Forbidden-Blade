@@ -21,7 +21,7 @@ public class Entity : MonoBehaviour
     #endregion
 
     public int facingDir { get; private set; } = 1;
-    public bool facingRight = true;
+    protected bool facingRight = true;
 
 
     protected virtual void Awake()

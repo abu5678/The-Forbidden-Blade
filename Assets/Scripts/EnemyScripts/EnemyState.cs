@@ -11,6 +11,8 @@ public class EnemyState
     private string animBoolName;
     protected float stateTimer;
 
+    protected Rigidbody2D rigidbody2D;
+
     public EnemyState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName)
     {
         this.enemyBase = enemyBase;
@@ -20,7 +22,9 @@ public class EnemyState
     public virtual void Enter()
     {
         triggerCalled = false;
+        //makes the boolean linked to the animation we want to play  true so the animation will start
         enemyBase.animator.SetBool(animBoolName, true);
+        rigidbody2D = enemyBase.rigidbody2D;
 
     }
     public virtual void Update()
@@ -29,6 +33,7 @@ public class EnemyState
     }
     public virtual void Exit() 
     {
+        //makes the boolean linked to the animation false so that the animation stops playing
         enemyBase.animator.SetBool(animBoolName, false);
 
     }

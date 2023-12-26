@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonIdleState : EnemyState
-{
-    private EnemySkeleton enemy;
-    public SkeletonIdleState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName,EnemySkeleton enemy) : base(enemy, stateMachine, animBoolName)
+public class SkeletonIdleState : SkeletonGroundedState
+ {
+    public SkeletonIdleState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, EnemySkeleton enemy) : base(enemyBase, stateMachine, animBoolName, enemy)
     {
-        this.enemy = enemy;
     }
 
     public override void Enter()
     {
         base.Enter();
         //the skeleton will stay idle for 1 second
-        stateTimer = 1f;
+        stateTimer = enemy.idleTime;
     }
 
     public override void Exit()

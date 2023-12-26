@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonMoveState : EnemyState
+public class SkeletonMoveState : SkeletonGroundedState
 {
-    private EnemySkeleton enemy;
-    public SkeletonMoveState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName,EnemySkeleton enemy) : base(enemy, stateMachine, animBoolName)
+
+    public SkeletonMoveState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, EnemySkeleton enemy) : base(enemyBase, stateMachine, animBoolName, enemy)
     {
-        this.enemy = enemy;
     }
 
     public override void Enter()
@@ -24,7 +23,7 @@ public class SkeletonMoveState : EnemyState
     {
         base.Update();
         //makes the skeleton move forward
-        enemy.setVelocity(2 * enemy.facingDir, enemy.rigidbody2D.velocity.y);   
+        enemy.setVelocity(enemy.moveSpeed * enemy.facingDir,rigidbody2D.velocity.y);   
 
         //checks to see if there is a wall infront or if there is no more platform to walk on since the detections are a bit infront
         //of the skeleton, it will make the skeleton flip and return to idle

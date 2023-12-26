@@ -15,7 +15,7 @@ public class SkeletonStunnedState : EnemyState
     {
         base.Enter();
         //makes the redcolourblink method keep repeating for 1 second
-        enemy.entityFX.InvokeRepeating("RedColourBlink", 0, 1f);
+        enemy.entityFX.InvokeRepeating("RedColourBlink", 0, 0.1f);
         //how long the enemy should be stunned for
         stateTimer = enemy.stunDuration;
         //causes the stunned enemy to move back

@@ -14,6 +14,7 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        xInput = 0;
         //checks if the player has reached the end of the combo or have not attacked for a long while
         //if so the combo counter resets
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)

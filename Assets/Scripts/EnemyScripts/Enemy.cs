@@ -6,6 +6,13 @@ using UnityEngine;
 public class Enemy : Entity
 {
     [SerializeField] protected LayerMask whatIsPlayer;
+
+    [Header("Stun Info")]
+    public float stunDuration;
+    public Vector2 stunDirection;
+    protected bool canBeStunned;
+    [SerializeField] protected GameObject counterImage;
+
     [Header("Move Info")]
     public float moveSpeed;
     public float idleTime;
@@ -31,6 +38,30 @@ public class Enemy : Entity
     {
         base.Update();
         stateMachine.currentState.Update();
+    }
+
+    //if the enemy can be stunned it closes the counter window so that it is ready and availabe for next time the enemy can be stunned
+    public virtual bool CanBeStunned()
+    {
+        if (canBeStunned)
+        {
+            closeCounterAttackWindow();
+            return true;    
+        }
+        return false;
+    }
+    //opens the counter attack window making it so that the enemy can be stunned and makes the counter image appear
+    //to show that they are counterable 
+    public virtual void OpenCounterAttackWindow()
+    {
+        canBeStunned = true;
+        counterImage.SetActive(true);
+    }
+    //closes the counter attack window making it so that the enemy cannot be stunned and makes the counter image disappear
+    public virtual void closeCounterAttackWindow()
+    {
+        canBeStunned= false;
+        counterImage.SetActive(false);
     }
     public virtual RaycastHit2D isPlayerDetected()
     {

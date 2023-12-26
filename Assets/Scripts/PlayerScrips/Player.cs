@@ -7,6 +7,7 @@ public class Player : Entity
     #region Attacks
     [Header("Attack Info")]
     public Vector2[] attackMovement;
+    public float counterAttackDurtaion = 0.2f;
     #endregion
 
     public bool isBusy {  get; private set; }
@@ -37,6 +38,7 @@ public class Player : Entity
     public PlayerWallSlideState wallSlideState { get; private set; }
     public PlayerWallJumpState wallJumpState { get; private set; }
     public PlayerPrimaryAttackState primaryAttackState { get; private set; }
+    public PlayerCounterAttackState counterAttackState { get; private set; }
 
 
     //initialises variables before game starts
@@ -53,6 +55,7 @@ public class Player : Entity
         wallSlideState = new PlayerWallSlideState(stateMachine, this, "WallSlide");
         wallJumpState = new PlayerWallJumpState(stateMachine, this, "Jump");
         primaryAttackState = new PlayerPrimaryAttackState(stateMachine, this, "Attack");
+        counterAttackState = new PlayerCounterAttackState(stateMachine, this, "CounterAttack");
 
     }
     #endregion

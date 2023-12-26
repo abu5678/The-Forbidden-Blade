@@ -21,6 +21,9 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+        //the player can counter attack by pressing Q
+        if (Input.GetKeyDown(KeyCode.Q))
+            stateMachine.ChangeState(player.counterAttackState);
         //while the player is on the ground they can attack by pressing left click
         if (Input.GetKeyDown(KeyCode.Mouse0))
             stateMachine.ChangeState(player.primaryAttackState);

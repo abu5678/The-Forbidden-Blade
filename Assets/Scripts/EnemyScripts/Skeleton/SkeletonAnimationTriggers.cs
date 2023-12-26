@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//used if any events need to happen during animations
 public class SkeletonAnimationTriggers : MonoBehaviour
 {
     private EnemySkeleton enemy => GetComponentInParent<EnemySkeleton>();
@@ -22,5 +24,15 @@ public class SkeletonAnimationTriggers : MonoBehaviour
             if (hit.GetComponent<Player>() != null)
                 hit.GetComponent<Player>().Damage();
         }
+    }
+
+    //open and closes counter attack windows for the skeleton
+    private void openCounterWindow()
+    {
+        enemy.OpenCounterAttackWindow();
+    }
+    private void closeCounterWindow()
+    {
+        enemy.closeCounterAttackWindow();
     }
 }

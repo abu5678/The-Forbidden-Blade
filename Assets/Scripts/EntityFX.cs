@@ -26,4 +26,20 @@ public class EntityFX : MonoBehaviour
         spriteRenderer.material = originalMaterial;
     }
 
+    //make the sprite render colour keep alternating between red and white
+    private void RedColourBlink()
+    {
+        if(spriteRenderer.color != Color.red)
+            spriteRenderer.color = Color.white;
+        else
+            spriteRenderer.color = Color.red;
+        
+    }
+
+    //used to make the sprite render stop changing colours
+    private void cancelRedBlink()
+    {
+        CancelInvoke();
+        spriteRenderer.color = Color.white;
+    }
 }

@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Media;
 using UnityEngine;
 
 
 //for both players and enemies since they share alot
 public class Entity : MonoBehaviour
 {
+  
+    
     #region collision checks
     [Header("Collsion Info")]
+    public Transform attackCheck;
+    public float attackCheckRadius;
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected float groundCheckDistance;
     [SerializeField] protected Transform wallCheck;
@@ -40,6 +45,11 @@ public class Entity : MonoBehaviour
 
     }
 
+    public virtual void Damage()
+    {
+
+    }
+
     #region collision detection
     //check if the character is on the ground
     public virtual bool IsGroundDetected()
@@ -58,6 +68,8 @@ public class Entity : MonoBehaviour
         Gizmos.DrawLine(groundCheck.position, new Vector2(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
         //creates a line to be used to check collisions with walls
         Gizmos.DrawLine(wallCheck.position, new Vector2(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+
+        Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
     }
     #endregion
 

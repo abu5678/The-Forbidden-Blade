@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//for both players and enemies since they share alot
 public class Entity : MonoBehaviour
 {
     #region collision checks

@@ -35,7 +35,7 @@ public class PlayerState
         //gets the horizontal and vertical input from the user
         xInput = Input.GetAxisRaw("Horizontal");
         yInput = Input.GetAxisRaw("Vertical");
-
+        //sets the float linked to the animation we want to play
         player.animator.SetFloat("yVelocity",rigidbody2D.velocity.y);
     }
     public virtual void Exit()

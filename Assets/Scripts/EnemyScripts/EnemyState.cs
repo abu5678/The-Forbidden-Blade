@@ -37,4 +37,10 @@ public class EnemyState
         enemyBase.animator.SetBool(animBoolName, false);
 
     }
+
+    //used to make an animation stop
+    public virtual void animationFinishTrigger()
+    {
+        triggerCalled = true;
+    }
 }

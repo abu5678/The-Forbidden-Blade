@@ -9,9 +9,12 @@ public class Enemy : Entity
     [Header("Move Info")]
     public float moveSpeed;
     public float idleTime;
+    public float battleTime;
 
     [Header("Attack Info")]
     public float attackDistance;
+    public float attackCooldwon;
+    public float lastTimeAttacked;
     public EnemyStateMachine stateMachine {  get; private set; }
     protected override void Awake()
     {
@@ -31,7 +34,7 @@ public class Enemy : Entity
     }
     public virtual RaycastHit2D isPlayerDetected()
     {
-        //2.40 , makes it so that the enemy can detect the player if they are within range and facing the player
+        //makes it so that the enemy can detect the player if they are within range and facing the player
         return Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsPlayer);
     }
     protected override void OnDrawGizmos()
@@ -41,5 +44,10 @@ public class Enemy : Entity
         Gizmos.color = Color.yellow;
         //will be used for enemy attack range
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * facingDir,transform.position.y));
+    }
+    //used to make an animtation stop
+    public virtual void animationFinishTrigger ()
+    {
+        stateMachine.currentState.animationFinishTrigger();
     }
 }

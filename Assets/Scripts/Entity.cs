@@ -83,7 +83,7 @@ public class Entity : MonoBehaviour
 
     #region velocity
     //makes the character stop moving
-    public void ZeroVelocity()
+    public void setZeroVelocity()
     {
         rigidbody2D.velocity = new Vector2(0, 0);
     }

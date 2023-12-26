@@ -47,7 +47,7 @@ public class PlayerPrimaryAttackState : PlayerState
         base.Update();
         //makes it so that the player cannot move while attacking
         if (StateTimer < 0)
-            player.ZeroVelocity();
+            player.setZeroVelocity();
         //once the animation has finished triggerCalled will be true and reset the player back to idle
         if (triggerCalled)
             stateMachine.ChangeState(player.idleState);

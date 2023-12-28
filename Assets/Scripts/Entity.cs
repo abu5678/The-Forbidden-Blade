@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected Vector2 KnockbackDirection;
     [SerializeField] protected float knockbackDuration;
     protected bool isKnocked;
+
     #region collision checks
     [Header("Collsion Info")]
     public Transform attackCheck;
@@ -26,6 +27,7 @@ public class Entity : MonoBehaviour
     public Animator animator { get; private set; }
     public Rigidbody2D rigidbody2D { get; private set; }
     public EntityFX entityFX { get; private set; }
+    public EntityStats stats { get; private set; }
     #endregion
 
     public int facingDir { get; private set; } = 1;
@@ -42,6 +44,7 @@ public class Entity : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         entityFX = GetComponentInChildren<EntityFX>();
+        stats = GetComponent<EntityStats>();
     }
 
     protected virtual void Update()
@@ -49,7 +52,7 @@ public class Entity : MonoBehaviour
 
     }
 
-    public virtual void Damage()
+    public virtual void damageEffect()
     {
         entityFX.StartCoroutine("flashFX");
         StartCoroutine("HitKnockback");

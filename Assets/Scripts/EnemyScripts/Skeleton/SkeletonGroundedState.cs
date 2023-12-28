@@ -7,6 +7,7 @@ public class SkeletonGroundedState : EnemyState
     protected EnemySkeleton enemy;
 
     protected Transform player;
+
     public SkeletonGroundedState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, EnemySkeleton enemy) : base(enemyBase, stateMachine, animBoolName)
     {
         this.enemy = enemy;
@@ -15,7 +16,7 @@ public class SkeletonGroundedState : EnemyState
     public override void Enter()
     {
         base.Enter();
-
+  
         player = GameObject.Find("Player").transform;
     }
 

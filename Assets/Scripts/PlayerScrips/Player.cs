@@ -11,6 +11,7 @@ public class Player : Entity
     #endregion
 
     public bool isBusy {  get; private set; }
+    public bool isDead;
 
     [Header("Move Info")]
     #region movement
@@ -39,6 +40,7 @@ public class Player : Entity
     public PlayerWallJumpState wallJumpState { get; private set; }
     public PlayerPrimaryAttackState primaryAttackState { get; private set; }
     public PlayerCounterAttackState counterAttackState { get; private set; }
+    public PlayerDeadState deadState { get; private set; }
 
 
     //initialises variables before game starts
@@ -56,6 +58,7 @@ public class Player : Entity
         wallJumpState = new PlayerWallJumpState(stateMachine, this, "Jump");
         primaryAttackState = new PlayerPrimaryAttackState(stateMachine, this, "Attack");
         counterAttackState = new PlayerCounterAttackState(stateMachine, this, "CounterAttack");
+        deadState = new PlayerDeadState(stateMachine, this, "Die");
 
     }
     #endregion
@@ -102,7 +105,7 @@ public class Player : Entity
 
         dashTimer -= Time.deltaTime;
         //dashTimer < 0 checks if the dash is available and off cooldown
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0 && !isDead)
         {
             //resets dash cooldown
             dashTimer = dashCooldown;
@@ -112,6 +115,10 @@ public class Player : Entity
                 dashDir = facingDir;
             stateMachine.ChangeState(dashState);
         }
+    }
+    public void playerDeath()
+    {
+        isDead = true;
     }
 
 }

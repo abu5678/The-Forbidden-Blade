@@ -65,8 +65,16 @@ public class Enemy : Entity
     }
     public virtual RaycastHit2D isPlayerDetected()
     {
+        float playerDistanceCheck = 50;
         //makes it so that the enemy can detect the player if they are within range and facing the player
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsPlayer);
+        RaycastHit2D playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck, whatIsPlayer);
+        RaycastHit2D wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck + 1, whatIsGround);
+
+        //if a wall is between the enemy and player the enemy will stop being aggressive
+        //if (wallDetected)
+            //return default(RaycastHit2D);
+
+        return playerDetected;
     }
     protected override void OnDrawGizmos()
     {

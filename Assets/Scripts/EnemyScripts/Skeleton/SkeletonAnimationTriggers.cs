@@ -22,7 +22,13 @@ public class SkeletonAnimationTriggers : MonoBehaviour
         foreach (var hit in colliders)
         {
             if (hit.GetComponent<Player>() != null)
-                hit.GetComponent<Player>().Damage();
+            {
+                //player gets knocked back and flash fx plays
+                hit.GetComponent<Player>().damageEffect();
+                //causes the enemy to take damage according to the skeletons damage
+                hit.GetComponent<EntityStats>().takeDamage(enemy.stats.damage);
+            }
+
         }
     }
 

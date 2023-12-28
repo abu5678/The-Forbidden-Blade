@@ -20,7 +20,12 @@ public class PlayerAnimationTrigger : MonoBehaviour
         foreach (var hit in colliders)
         {
             if (hit.GetComponent<Enemy>() != null)
-                hit.GetComponent<Enemy>().Damage();
+            {
+                //enemy gets knocked back and flash fx plays
+                hit.GetComponent<Enemy>().damageEffect();
+                //causes the enemy to take damage according to the players damage
+                hit.GetComponent<EntityStats>().takeDamage(player.stats.damage);
+            }
         }
     }
 }

@@ -28,9 +28,6 @@ public class SkeletonDeadState : EnemyState
     public override void Update()
     {
         base.Update();
-
-        enemy.closeCounterAttackWindow();
         enemy.setZeroVelocity();
-        enemy.GetComponent<Collider2D>().enabled = false;
     }
 }

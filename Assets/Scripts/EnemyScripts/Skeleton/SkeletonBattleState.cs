@@ -6,7 +6,6 @@ using UnityEngine;
 public class SkeletonBattleState : EnemyState
 {
     private Transform player;
-    private Player playerChar => player.GetComponent<Player>();
     private EnemySkeleton enemy;
     private int moveDir;
 
@@ -19,7 +18,7 @@ public class SkeletonBattleState : EnemyState
     {
         base.Enter();
 
-        player = GameObject.Find("Player").transform;
+        player = PlayerManager.instance.player.transform;
     }
 
     public override void Exit()

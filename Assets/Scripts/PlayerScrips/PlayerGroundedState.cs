@@ -21,6 +21,9 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+        //the player will start aiming the sword by holding right click, only if there is not one currently active
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !player.sword)
+            stateMachine.ChangeState(player.aimSwordState);
         //the player can counter attack by pressing Q
         if (Input.GetKeyDown(KeyCode.Q))
             stateMachine.ChangeState(player.counterAttackState);

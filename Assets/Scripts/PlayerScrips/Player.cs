@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    public SkillsManager Skills {  get; private set; }
+    public GameObject sword {  get; private set; }
     #region Attacks
     [Header("Attack Info")]
     public Vector2[] attackMovement;
@@ -11,7 +13,6 @@ public class Player : Entity
     #endregion
 
     public bool isBusy {  get; private set; }
-    public bool isDead;
 
     [Header("Move Info")]
     #region movement
@@ -19,14 +20,10 @@ public class Player : Entity
     public float jumpForce;
 
     [Header("Dash Info")]
-    [SerializeField] private float dashCooldown;
-    private float dashTimer;
     public float dashSpeed;
     public float dashDuration;
     public float dashDir { get; private set;}
-    
-
-
+   
     #endregion
 
     #region states
@@ -41,6 +38,8 @@ public class Player : Entity
     public PlayerPrimaryAttackState primaryAttackState { get; private set; }
     public PlayerCounterAttackState counterAttackState { get; private set; }
     public PlayerDeadState deadState { get; private set; }
+    public PlayerCatchSwordState CatchSwordState { get; private set; }
+    public PlayerAimSwordState aimSwordState { get; private set; }
 
 
     //initialises variables before game starts
@@ -59,6 +58,8 @@ public class Player : Entity
         primaryAttackState = new PlayerPrimaryAttackState(stateMachine, this, "Attack");
         counterAttackState = new PlayerCounterAttackState(stateMachine, this, "CounterAttack");
         deadState = new PlayerDeadState(stateMachine, this, "Die");
+        aimSwordState = new PlayerAimSwordState(stateMachine, this, "AimSword");
+        CatchSwordState = new PlayerCatchSwordState(stateMachine, this, "CatchSword");
 
     }
     #endregion
@@ -66,7 +67,7 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
-
+        Skills = SkillsManager.instance;
         //sets the player to its starting state which is idle
         stateMachine.Initialise(idleState);
         
@@ -81,6 +82,15 @@ public class Player : Entity
         checkForDashInput(); 
     }
 
+    //will be used to check if the player currently has an active sword thrown
+    public void assignNewSword(GameObject newSword)
+    {
+        sword = newSword;
+    }
+    public void clearTheSword()
+    {
+        Destroy(sword);
+    }
     //used to make sure certain actions cannot be done at the same time
     public IEnumerator BusyFor(float seconds)
     {
@@ -103,22 +113,15 @@ public class Player : Entity
         if (isWallDetected())
             return;
 
-        dashTimer -= Time.deltaTime;
-        //dashTimer < 0 checks if the dash is available and off cooldown
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0 && !isDead)
+        // checks if the dash is available and off cooldown and the user presses left shift
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Skills.dash.CanUseSkill())
         {
-            //resets dash cooldown
-            dashTimer = dashCooldown;
             dashDir = Input.GetAxisRaw("Horizontal");
             //check to see if the player is not moving then to dash the direction they are facing
             if (dashDir == 0)
                 dashDir = facingDir;
             stateMachine.ChangeState(dashState);
         }
-    }
-    public void playerDeath()
-    {
-        isDead = true;
     }
 
 }

@@ -28,4 +28,10 @@ public class PlayerAnimationTrigger : MonoBehaviour
             }
         }
     }
+
+    private void ThrowSword()
+    {
+        //will create a sword to throw at some point of the sword throw animation
+        SkillsManager.instance.swordThrow.createSword();
+    }
 }

@@ -21,10 +21,11 @@ public class PlayerAnimationTrigger : MonoBehaviour
         {
             if (hit.GetComponent<Enemy>() != null)
             {
+                EnemyStats target = hit.GetComponent<EnemyStats>();
+                if (target.currentHP > 0)
                 //enemy gets knocked back and flash fx plays
                 hit.GetComponent<Enemy>().damageEffect();
-                //causes the enemy to take damage according to the players damage
-                hit.GetComponent<EntityStats>().takeDamage(player.stats.damage);
+                player.stats.doDamage(target);
             }
         }
     }

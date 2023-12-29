@@ -28,6 +28,8 @@ public class SkeletonDeadState : EnemyState
     public override void Update()
     {
         base.Update();
+        enemy.GetComponentInChildren<Canvas>().enabled = false;
+        enemy.closeCounterAttackWindow();
         enemy.setZeroVelocity();
     }
 }

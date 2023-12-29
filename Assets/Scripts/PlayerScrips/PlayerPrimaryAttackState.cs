@@ -7,6 +7,7 @@ public class PlayerPrimaryAttackState : PlayerState
     private int comboCounter;
     private float lastTimeAttacked;
     private float comboWindow = 2;
+    private int originalDamage;
     public PlayerPrimaryAttackState(PlayerStateMachine _stateMachine, Player _player, string _animBoolName) : base(_stateMachine, _player, _animBoolName)
     {
     }
@@ -14,11 +15,34 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        //get the original damage before combo started
+        if (comboCounter == 0) 
+            originalDamage = player.stats.damage.getBaseValue();
         xInput = 0;
+
+        //makes it so that the damage ramps up when doing a combo attack
+        if (comboCounter == 1 && Time.time <= lastTimeAttacked + comboWindow)
+            player.stats.damage.setBaseValue((int)(originalDamage * 0.5));
+
+        if (comboCounter == 2 && Time.time <= lastTimeAttacked + comboWindow)
+            player.stats.damage.setBaseValue((int)(originalDamage * 0.5));
+
+
+
         //checks if the player has reached the end of the combo or have not attacked for a long while
         //if so the combo counter resets
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
+        {
+            //resets the base damage to the damage before combo
+            if (comboCounter == 2)
+            {
+                player.stats.damage.setBaseValue((int)(-originalDamage * 0.5));
+            }
+            else if (comboCounter == 3)
+                player.stats.damage.setBaseValue(-originalDamage);
+
             comboCounter = 0;
+        }
         player.animator.SetInteger("ComboCounter", comboCounter);
 
         //lets the player switch directions when attacking
@@ -52,6 +76,9 @@ public class PlayerPrimaryAttackState : PlayerState
         //once the animation has finished triggerCalled will be true and reset the player back to idle
         if (triggerCalled)
             stateMachine.ChangeState(player.idleState);
+
+
+
 
     }
 }

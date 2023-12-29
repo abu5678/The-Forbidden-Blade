@@ -23,6 +23,7 @@ public class PlayerAimSwordState : PlayerState
 
     public override void Update()
     {
+        player.setZeroVelocity();
         base.Update();
         //if the user lets go of right click they will no longer aim the sword
         if (Input.GetKeyUp(KeyCode.Mouse1))

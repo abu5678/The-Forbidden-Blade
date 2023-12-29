@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class EntityStats : MonoBehaviour
 {
-    public int maxHP;
-    public int damage;
-    [SerializeField] private int currentHP;
+    public Stat strength;
+    public Stat maxHP;
+    public Stat damage;
+    [SerializeField] public int currentHP;
+
+
 
     // Start is called before the first frame update
-    public virtual void Start()
+    protected virtual void Start()
     {
-        currentHP = maxHP;
+        currentHP = maxHP.getValue();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
+    public virtual void doDamage(EntityStats targetStats)
+    {
+        int totalDamage = damage.getValue() + strength.getValue();
+        targetStats.takeDamage(totalDamage);
+    }
     public virtual void takeDamage(int damageTaken)
     {
         currentHP -= damageTaken;
@@ -32,6 +40,5 @@ public class EntityStats : MonoBehaviour
 
     protected virtual void Die()
     {
-
     }
 }

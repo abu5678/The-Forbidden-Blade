@@ -46,4 +46,9 @@ public class EnemySkeleton : Enemy
         }
         return false;
     }
+    public override void die()
+    {
+        base.die();
+        stateMachine.ChangeState(deadState);
+    }
 }

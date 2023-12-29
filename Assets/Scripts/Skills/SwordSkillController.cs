@@ -13,6 +13,7 @@ public class SwordSkillController : MonoBehaviour
     private bool canRotate = true;
     private bool isReturning;
 
+
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -53,8 +54,22 @@ public class SwordSkillController : MonoBehaviour
         }
 
     }
+
+    private void SwordSkillDamage(Enemy enemy)
+    {
+        player.stats.doDamage(enemy.GetComponent<EntityStats>());
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isReturning)
+            return;
+
+        if (collision.GetComponent<Enemy>() != null)
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            enemy.damageEffect();
+            SwordSkillDamage(enemy);
+        }
         animator.SetBool("Rotation", false);
         //stop it rotating and disable the collider
         canRotate = false;

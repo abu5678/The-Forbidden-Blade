@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyStats : EntityStats
 {
-    private EnemySkeleton enemy;
-    public override void Start()
+    private Enemy enemy;
+    protected override void Start()
     {
         base.Start();
         enemy = GetComponent<EnemySkeleton>();
@@ -19,6 +19,6 @@ public class EnemyStats : EntityStats
     protected override void Die()
     {
         base.Die();
-        enemy.stateMachine.ChangeState(enemy.deadState);
+        enemy.die();
     }
 }

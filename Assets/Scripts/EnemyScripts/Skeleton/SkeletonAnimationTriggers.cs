@@ -26,7 +26,7 @@ public class SkeletonAnimationTriggers : MonoBehaviour
                 //player gets knocked back and flash fx plays
                 hit.GetComponent<Player>().damageEffect();
                 //causes the enemy to take damage according to the skeletons damage
-                hit.GetComponent<EntityStats>().takeDamage(enemy.stats.damage);
+                hit.GetComponent<EntityStats>().takeDamage(enemy.stats.damage.getValue());
             }
 
         }

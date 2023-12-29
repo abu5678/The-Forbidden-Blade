@@ -22,7 +22,7 @@ public class Enemy : Entity
     public float attackDistance;
     public float attackCooldwon;
     public float lastTimeAttacked;
-    public EnemyStateMachine stateMachine {  get; private set; }
+    public EnemyStateMachine stateMachine { get; private set; }
     protected override void Awake()
     {
         base.Awake();
@@ -39,7 +39,10 @@ public class Enemy : Entity
         base.Update();
         stateMachine.currentState.Update();
     }
-
+    public virtual void die()
+    {
+        
+    }
     //if the enemy can be stunned it closes the counter window so that it is ready and availabe for next time the enemy can be stunned
     public virtual bool CanBeStunned()
     {

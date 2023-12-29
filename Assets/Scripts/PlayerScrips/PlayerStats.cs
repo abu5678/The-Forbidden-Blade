@@ -6,7 +6,7 @@ public class PlayerStats : EntityStats
 {
     private Player player;
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
         player = GetComponent<Player>();

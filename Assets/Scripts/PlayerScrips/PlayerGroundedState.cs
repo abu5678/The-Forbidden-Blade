@@ -22,7 +22,7 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
         //the player will start aiming the sword by holding right click, only if there is not one currently active
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !player.sword)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && hasNoSword())
             stateMachine.ChangeState(player.aimSwordState);
         //the player can counter attack by pressing Q
         if (Input.GetKeyDown(KeyCode.Q))
@@ -36,6 +36,17 @@ public class PlayerGroundedState : PlayerState
         //if the user presses space the player will jump only if they are on the ground
         if (Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
+    }
+
+    private bool hasNoSword()
+    {
+        //if the player does not have a sword then return true
+        if (!player.sword)
+            return true;
+
+        //if they do return false and make the sword return to the player when the player clicks right click again
+        player.sword.GetComponent<SwordSkillController>().returnSword();
+        return false;
     }
 
 }

@@ -45,7 +45,7 @@ public class SwordSkillThrow : Skills
         SwordSkillController newSwordScript = newSword.GetComponent<SwordSkillController>();
 
         //assigns the throwing direction and gravity of the newly created sword
-        newSwordScript.setupSword(finalDir, swordGravity);
+        newSwordScript.setupSword(finalDir, swordGravity,player);
         player.assignNewSword(newSword);
         dotsActive(false);
     }

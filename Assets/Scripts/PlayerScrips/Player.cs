@@ -6,6 +6,7 @@ public class Player : Entity
 {
     public SkillsManager Skills {  get; private set; }
     public GameObject sword {  get; private set; }
+
     #region Attacks
     [Header("Attack Info")]
     public Vector2[] attackMovement;
@@ -18,6 +19,7 @@ public class Player : Entity
     #region movement
     public float moveSpeed = 8f;
     public float jumpForce;
+    public float swordReturnImpact;
 
     [Header("Dash Info")]
     public float dashSpeed;
@@ -87,8 +89,9 @@ public class Player : Entity
     {
         sword = newSword;
     }
-    public void clearTheSword()
+    public void catchTheSword()
     {
+        stateMachine.ChangeState(CatchSwordState);
         Destroy(sword);
     }
     //used to make sure certain actions cannot be done at the same time

@@ -22,6 +22,11 @@ public class PlayerWallSlideState : PlayerState
     {
         base.Update();
 
+        //if the player is sliding off a wall and there is no more wall they will enter the air state
+        if (!player.isWallDetected())
+            stateMachine.ChangeState(player.airState);
+           
+
         //if the player presses space while wall sliding they will perform a wall jump
         if (Input.GetKeyDown(KeyCode.Space))
         {

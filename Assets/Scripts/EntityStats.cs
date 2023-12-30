@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EntityStats : MonoBehaviour
 {
-    public Stat strength;
     public Stat maxHP;
     public Stat damage;
     [SerializeField] public int currentHP;
@@ -25,8 +24,9 @@ public class EntityStats : MonoBehaviour
 
     public virtual void doDamage(EntityStats targetStats)
     {
-        int totalDamage = damage.getValue() + strength.getValue();
-        targetStats.takeDamage(totalDamage);
+
+        targetStats.GetComponent<Entity>().setupKnockbackDirection(transform);
+        targetStats.takeDamage(damage.getValue());
     }
     public virtual void takeDamage(int damageTaken)
     {

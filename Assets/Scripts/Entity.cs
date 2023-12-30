@@ -8,8 +8,9 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [Header("Knockback Infor")]
-    [SerializeField] protected Vector2 KnockbackDirection;
+    [SerializeField] protected Vector2 KnockbackPower;
     [SerializeField] protected float knockbackDuration;
+    public int knockbackDir{  get; private set; }
     protected bool isKnocked;
 
     #region collision checks
@@ -60,11 +61,23 @@ public class Entity : MonoBehaviour
         StartCoroutine("HitKnockback");
     }
 
+    public virtual void setupKnockbackDirection(Transform damageDirection)
+    {
+        
+        if (damageDirection.position.x > transform.position.x)
+        {
+            knockbackDir = -1;
+        }
+        else if (damageDirection.position.x < transform.position.x)
+        {
+            knockbackDir = 1;
+        }
+    }
     protected virtual IEnumerator HitKnockback()
     {
         isKnocked = true;
         //when the character is knocked they will move back for a short time
-        rigidbody2D.velocity = new Vector2(KnockbackDirection.x * -facingDir, KnockbackDirection.y);
+        rigidbody2D.velocity = new Vector2(KnockbackPower.x * knockbackDir, KnockbackPower.y);
 
         yield return new WaitForSeconds(knockbackDuration);
 

@@ -53,6 +53,14 @@ public class EntityStats : MonoBehaviour
     {
     }
 
+    public void increaseHP(int health)
+    {
+        currentHP += health;
+        if (currentHP > maxHP.getValue())
+        {
+            currentHP = maxHP.getValue();
+        }
+    }
     public void makeInvincible(bool invincible)
     {
         isInvincible = invincible;

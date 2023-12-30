@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAnimationTrigger : MonoBehaviour
 {
     private Player player => GetComponentInParent<Player>();
+    [SerializeField] private GameOverScreen gameOverScreen;
 
     private void animationTrigger()
     {
@@ -34,5 +35,10 @@ public class PlayerAnimationTrigger : MonoBehaviour
     {
         //will create a sword to throw at some point of the sword throw animation
         SkillsManager.instance.swordThrow.createSword();
+    }
+
+    private void gameOver()
+    {
+        gameOverScreen.showScreen();
     }
 }

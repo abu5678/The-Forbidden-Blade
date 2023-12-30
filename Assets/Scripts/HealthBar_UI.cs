@@ -36,7 +36,7 @@ public class HealthBar_UI : MonoBehaviour
         slider.value = stats.currentHP;
     }
 
-    private void nDisable()
+    private void OnDisable()
     {
         entity.onFlipped -= FlipUI;
     }

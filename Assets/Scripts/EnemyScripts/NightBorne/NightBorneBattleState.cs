@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//when in battle state the enemy will keep chasing the player until they are within attack range
-public class SkeletonBattleState : EnemyState
+public class NightBorneBattleState : EnemyState
 {
     private Transform player;
-    private EnemySkeleton enemy;
+    private NightBorne enemy;
     private int moveDir;
 
-    public SkeletonBattleState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, EnemySkeleton enemy) : base(enemyBase, stateMachine, animBoolName)
+    public NightBorneBattleState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, NightBorne enemy) : base(enemyBase, stateMachine, animBoolName)
     {
         this.enemy = enemy;
     }
@@ -41,13 +40,13 @@ public class SkeletonBattleState : EnemyState
                 if (canAttack())
                     stateMachine.ChangeState(enemy.attackState);
             }
-            
+
         }
         else
         {
             //if the enemy has been in the battle state for too long and does not detect a player anymore or the player
-            //is far away from the enemy, the enemy will go back to the idle state
-            if (stateTimer < 0 || Vector2.Distance(player.transform.position,enemy.transform.position) > 10)
+            //is far away from the enemy the enemy will go back to the idle state
+            if (stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 10)
                 stateMachine.ChangeState(enemy.idleState);
         }
 
@@ -59,7 +58,7 @@ public class SkeletonBattleState : EnemyState
             moveDir = -1;
 
         //makes the enemy move forward
-        enemy.setVelocity(enemy.moveSpeed * moveDir,rigidbody2D.velocity.y);
+        enemy.setVelocity(enemy.moveSpeed * moveDir, rigidbody2D.velocity.y);
     }
 
     private bool canAttack()

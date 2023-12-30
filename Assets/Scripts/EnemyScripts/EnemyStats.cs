@@ -8,7 +8,7 @@ public class EnemyStats : EntityStats
     protected override void Start()
     {
         base.Start();
-        enemy = GetComponent<EnemySkeleton>();
+        enemy = GetComponent<Enemy>();
     }
 
     public override void takeDamage(int damageTaken)

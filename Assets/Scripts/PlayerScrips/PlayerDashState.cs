@@ -13,6 +13,7 @@ public class PlayerDashState : PlayerState
         base.Enter();
         //makes it so that the timer is as long as the dash duration
         StateTimer = player.dashDuration;
+        player.stats.makeInvincible(true);
     }
 
     public override void Exit()
@@ -20,6 +21,7 @@ public class PlayerDashState : PlayerState
         base.Exit();
         //makes it so that once we exit the dash state the player is not dashing forward
         player.setVelocity(0,rigidbody2D.velocity.y);
+        player.stats.makeInvincible(false);
     }
 
     public override void Update()

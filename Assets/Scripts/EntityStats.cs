@@ -6,6 +6,7 @@ public class EntityStats : MonoBehaviour
 {
     public Stat maxHP;
     public Stat damage;
+    public bool isInvincible { get; private set; }
     [SerializeField] public int currentHP;
 
 
@@ -30,6 +31,10 @@ public class EntityStats : MonoBehaviour
     }
     public virtual void takeDamage(int damageTaken)
     {
+
+        if (isInvincible)
+            return;
+
         currentHP -= damageTaken;
 
         if (currentHP <= 0) 
@@ -40,5 +45,10 @@ public class EntityStats : MonoBehaviour
 
     public virtual void Die()
     {
+    }
+
+    public void makeInvincible(bool invincible)
+    {
+        isInvincible = invincible;
     }
 }

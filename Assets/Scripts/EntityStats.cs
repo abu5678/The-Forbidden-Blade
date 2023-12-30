@@ -38,7 +38,7 @@ public class EntityStats : MonoBehaviour
         }
     }
 
-    protected virtual void Die()
+    public virtual void Die()
     {
     }
 }

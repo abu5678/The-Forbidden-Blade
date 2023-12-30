@@ -16,9 +16,10 @@ public class EnemyStats : EntityStats
         base.takeDamage(damageTaken);
     }
 
-    protected override void Die()
+    public override void Die()
     {
         base.Die();
         enemy.die();
+        Destroy(enemy, 5f);
     }
 }

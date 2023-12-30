@@ -19,6 +19,8 @@ public class SkeletonBattleState : EnemyState
         base.Enter();
 
         player = PlayerManager.instance.player.transform;
+        if (player.GetComponent<PlayerStats>().currentHP <= 0)
+            stateMachine.ChangeState(enemy.moveState);
     }
 
     public override void Exit()

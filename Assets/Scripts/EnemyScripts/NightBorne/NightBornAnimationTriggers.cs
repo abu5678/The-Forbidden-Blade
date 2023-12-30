@@ -20,10 +20,11 @@ public class NightBornAnimationTriggers : MonoBehaviour
         {
             if (hit.GetComponent<Player>() != null)
             {
+                PlayerStats target = hit.GetComponent<PlayerStats>();
                 //player gets knocked back and flash fx plays
+                enemy.stats.doDamage(target);
                 hit.GetComponent<Player>().damageEffect();
-                //causes the enemy to take damage according to the enemy damage
-                hit.GetComponent<EntityStats>().takeDamage(enemy.stats.damage.getValue());
+                //causes the player to take damage according to the enemy damage
             }
 
         }

@@ -74,8 +74,8 @@ public class Enemy : Entity
         RaycastHit2D wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck + 1, whatIsGround);
 
         //if a wall is between the enemy and player the enemy will stop being aggressive
-        //if (wallDetected)
-            //return default(RaycastHit2D);
+       // if (wallDetected)
+           // return default(RaycastHit2D);
 
         return playerDetected;
     }

@@ -67,8 +67,8 @@ public class SwordSkillController : MonoBehaviour
         if (collision.GetComponent<Enemy>() != null)
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            enemy.damageEffect();
             SwordSkillDamage(enemy);
+            enemy.damageEffect();
         }
         animator.SetBool("Rotation", false);
         //stop it rotating and disable the collider

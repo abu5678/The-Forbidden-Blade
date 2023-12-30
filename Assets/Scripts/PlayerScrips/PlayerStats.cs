@@ -17,7 +17,7 @@ public class PlayerStats : EntityStats
         base.takeDamage(damageTaken);
     }
 
-    protected override void Die()
+    public override void Die()
     {
         base.Die();
         player.stateMachine.ChangeState(player.deadState);

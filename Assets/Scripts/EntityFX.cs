@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EntityFX : MonoBehaviour
 {
+    [Header("Pop Up Text")]
+    [SerializeField] private GameObject popUpTextPrefab;
     private SpriteRenderer spriteRenderer;
 
     [SerializeField] private Material hitMaterial;
@@ -41,5 +44,16 @@ public class EntityFX : MonoBehaviour
     {
         CancelInvoke();
         spriteRenderer.color = Color.white;
+    }
+    public void createPopUpText(string text)
+    {
+        //makes it so that the pop up text appears in a random loaction above the character
+        float randomX = Random.Range(4.5f,6.5f);
+        float randomY = Random.Range(0,1.5f);
+
+        Vector3 positionOffset = new Vector3(randomX, randomY, 0);
+        GameObject newText = Instantiate(popUpTextPrefab,transform.position + positionOffset,Quaternion.identity);
+
+        newText.GetComponent<TextMeshPro>().text = text;
     }
 }

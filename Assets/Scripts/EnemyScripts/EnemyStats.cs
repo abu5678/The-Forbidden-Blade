@@ -20,6 +20,5 @@ public class EnemyStats : EntityStats
     {
         base.Die();
         enemy.die();
-        Destroy(enemy, 5f);
     }
 }

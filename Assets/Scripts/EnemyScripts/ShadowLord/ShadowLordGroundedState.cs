@@ -2,17 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShadowLordGroundedState : MonoBehaviour
+public class ShadowLordGroundedState : EnemyState
 {
-    // Start is called before the first frame update
-    void Start()
+    protected ShadowLord enemy;
+
+    protected Transform player;
+
+    public ShadowLordGroundedState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, ShadowLord enemy) : base(enemyBase, stateMachine, animBoolName)
     {
-        
+        this.enemy = enemy;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Enter()
     {
-        
+        base.Enter();
+
+        player = PlayerManager.instance.player.transform;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        //if the enemy detects the player infront or right behind them they will enter the battle state
+        if (enemy.isPlayerDetected() || Vector2.Distance(enemy.transform.position, player.position) < 2)
+            stateMachine.ChangeState(enemy.battleState);
     }
 }

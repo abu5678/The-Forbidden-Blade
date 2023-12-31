@@ -23,7 +23,7 @@ public class PlayerAnimationTrigger : MonoBehaviour
             if (hit.GetComponent<Enemy>() != null)
             {
                 EnemyStats target = hit.GetComponent<EnemyStats>();
-                if (target.currentHP > 0)
+                if (target.currentHP > 0 && !target.isInvincible)
                 {
                     //enemy gets knocked back and flash fx plays
                     player.stats.doDamage(target);

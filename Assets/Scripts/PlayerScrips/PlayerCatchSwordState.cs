@@ -14,6 +14,7 @@ public class PlayerCatchSwordState : PlayerState
         base.Enter();
         sword = player.sword.transform;
         //makes it so that when the sword is returning the player will face the direction it is returning from
+        player.entityFX.ScreenShake(player.entityFX.swordImpactShake);
         if (player.transform.position.x > sword.position.x && player.facingDir == 1)
             player.FlipCharacter();
         else if (player.transform.position.x < sword.position.x && player.facingDir == -1)

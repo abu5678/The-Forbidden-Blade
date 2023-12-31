@@ -10,6 +10,7 @@ public class Spikes : MonoBehaviour
         {
             EntityStats target = collision.GetComponent<EntityStats>();
             target.takeDamage(10);
+            target.GetComponent<Entity>().rigidbody2D.velocity = new Vector2(0, 100);
             target.GetComponent<Entity>().damageEffect();
         }
 

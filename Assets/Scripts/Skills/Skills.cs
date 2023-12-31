@@ -19,15 +19,15 @@ public class Skills : MonoBehaviour
 
     public virtual bool CanUseSkill()
     {
-        if(cooldownTimer <= 0)
+        if (cooldownTimer <= 0)
         {
             //uses the skill and resets that skills cooldown
             useSkill();
             cooldownTimer = cooldown;
             return true;
-        } 
-        else
-            return false;
+        }
+        player.entityFX.createPopUpText("Cooldown");
+        return false;
             
     }
     public virtual void useSkill()

@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Media;
 using UnityEngine;
 
 
@@ -10,6 +8,7 @@ public class Entity : MonoBehaviour
     [Header("Knockback Infor")]
     [SerializeField] protected Vector2 KnockbackPower;
     [SerializeField] protected float knockbackDuration;
+    [SerializeField] protected Vector2 knockbackOffset;
     public int knockbackDir{  get; private set; }
     protected bool isKnocked;
 
@@ -76,8 +75,10 @@ public class Entity : MonoBehaviour
     protected virtual IEnumerator HitKnockback()
     {
         isKnocked = true;
+        float xOffset = Random.Range(knockbackOffset.x, knockbackOffset.y);
         //when the character is knocked they will move back for a short time
-        rigidbody2D.velocity = new Vector2(KnockbackPower.x * knockbackDir, KnockbackPower.y);
+        if(KnockbackPower.x > 0 || KnockbackPower.y>0)
+            rigidbody2D.velocity = new Vector2((KnockbackPower.x + xOffset) * knockbackDir, KnockbackPower.y);
 
         yield return new WaitForSeconds(knockbackDuration);
 

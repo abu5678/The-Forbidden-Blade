@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class EntityFX : MonoBehaviour
 {
+
+    [Header("After Image fx")]
+    [SerializeField] private float afterImageCooldown;
+    [SerializeField] private GameObject afterImagePrefab;
+    [SerializeField] private float colourLoseSpeed;
+    private float afterImageCooldownTimer;
+
     [Header("Pop Up Text")]
     [SerializeField] private GameObject popUpTextPrefab;
     private SpriteRenderer spriteRenderer;
@@ -15,6 +22,20 @@ public class EntityFX : MonoBehaviour
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();    
         originalMaterial = spriteRenderer.material;
+    }
+    private void Update()
+    {
+        afterImageCooldownTimer -= Time.deltaTime;
+    }
+
+    public void CreateAfterImage()
+    {
+        if (afterImageCooldownTimer < 0)
+        {
+            afterImageCooldownTimer = afterImageCooldown;
+            GameObject newAfterImage = Instantiate(afterImagePrefab, transform.position, transform.rotation);
+            newAfterImage.GetComponent<AfterImageFX>().setupAfterImage(colourLoseSpeed, spriteRenderer.sprite);
+        }
     }
 
 

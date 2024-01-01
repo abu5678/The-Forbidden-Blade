@@ -18,9 +18,11 @@ public class ShadowLordBattleState : EnemyState
         base.Enter();
 
         player = PlayerManager.instance.player.transform;
-
+        //when the player is dead the enemy will just keep moving and not attack
         if (player.GetComponent<PlayerStats>().currentHP <= 0)
-            stateMachine.ChangeState(enemy.moveState);
+        {
+                stateMachine.ChangeState(enemy.moveState);
+        }
     }
 
     public override void Exit()
@@ -41,7 +43,14 @@ public class ShadowLordBattleState : EnemyState
             {
                 //if the enemy attack is not on cooldown it will attack
                 if (canAttack())
-                    stateMachine.ChangeState(enemy.attackState);
+                {
+                    //makes it so that the enemy will randomly pick an attack to do
+                    int pickAttack = Random.Range(1, 4);
+                    if (pickAttack == 3)
+                        stateMachine.ChangeState(enemy.jumpAttackState);
+                    else
+                        stateMachine.ChangeState(enemy.attackState);
+                }
             }
 
         }
@@ -50,7 +59,9 @@ public class ShadowLordBattleState : EnemyState
             //if the enemy has been in the battle state for too long and does not detect a player anymore or the player
             //is far away from the enemy the enemy will go back to the idle state
             if (stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 10)
-                stateMachine.ChangeState(enemy.idleState);
+            {
+                    stateMachine.ChangeState(enemy.idleState);
+            }
         }
 
         //if the player is on the right of the enemy the enemy will move to the right
@@ -60,8 +71,24 @@ public class ShadowLordBattleState : EnemyState
         else if (player.position.x < enemy.transform.position.x)
             moveDir = -1;
 
-        //makes the enemy move forward
-        enemy.setVelocity(enemy.moveSpeed * moveDir, rigidbody2D.velocity.y);
+        //checks to see if the player is right on top of the enemy they will attack them
+        if (Vector2.Distance(player.transform.position, enemy.transform.position) < 0.5)
+        {
+            //if the enemy attack is not on cooldown it will attack
+            if (canAttack())
+            {
+                //makes it so that the enemy will randomly pick an attack to do
+                int pickAttack = Random.Range(1, 4);
+                if (pickAttack == 3)
+                    stateMachine.ChangeState(enemy.jumpAttackState);
+                else
+                    stateMachine.ChangeState(enemy.attackState);
+            }
+        }
+        else
+            //makes the enemy move forward
+            enemy.setVelocity(enemy.moveSpeed * moveDir, rigidbody2D.velocity.y);
+
     }
 
     private bool canAttack()

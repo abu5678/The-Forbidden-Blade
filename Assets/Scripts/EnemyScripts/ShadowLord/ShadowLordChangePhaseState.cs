@@ -26,11 +26,15 @@ public class ShadowLordChangePhaseState : EnemyState
     public override void Exit()
     {
         base.Exit();
-        enemy.stats.makeInvincible(false);
     }
 
     public override void Update()
     {
         base.Update();
+        if (triggerCalled)
+        {
+            enemy.stats.makeInvincible(false);
+            stateMachine.ChangeState(enemy.phase2IdleState);
+        }
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aa13a6db4ffb7944a81fdcd01765bef9
+guid: d90eea94c46fa0240912a9e8b7dfef14
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: unit_idle_211000927_0
+      name: Death explosion_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 113
-        height: 98
+        width: 80
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fccfcff2f0b70b440ada8e8db6d43a7d
-      internalID: -1588642969
+      spriteID: 3b0860166b536c04e9bdd303fb79dfe1
+      internalID: -46110168
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unit_idle_211000927_1
+      name: Death explosion_1
       rect:
         serializedVersion: 2
-        x: 113
+        x: 80
         y: 0
-        width: 113
-        height: 98
+        width: 80
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +158,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f93b1dedd481e5340b77c52e8ee2cf79
-      internalID: -1266340458
+      spriteID: c0278de8a7013d74e94a99cf8a007529
+      internalID: -1402249512
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unit_idle_211000927_2
+      name: Death explosion_2
       rect:
         serializedVersion: 2
-        x: 226
+        x: 160
         y: 0
-        width: 113
-        height: 98
+        width: 80
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +179,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d935af50c011c4943aa561c6c6df24ce
-      internalID: 1348183750
+      spriteID: 5d6e1be4e5863ed4487b00e93be2443d
+      internalID: -1543771608
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unit_idle_211000927_3
+      name: Death explosion_3
       rect:
         serializedVersion: 2
-        x: 339
+        x: 240
         y: 0
-        width: 113
-        height: 98
+        width: 80
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +200,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7216b7081361c64c9ab9d9c48584b98
-      internalID: -1276235978
+      spriteID: cca0ea4c60f3dfe4ea72dff365107d66
+      internalID: -1871867558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unit_idle_211000927_4
+      name: Death explosion_4
       rect:
         serializedVersion: 2
-        x: 452
+        x: 320
         y: 0
-        width: 113
-        height: 98
+        width: 80
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +221,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d71efc3d51c8a74b85937dc722b5517
-      internalID: -1576085364
+      spriteID: eddbedd728b813b4286e88778e915b1b
+      internalID: -1366718442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unit_idle_211000927_5
+      name: Death explosion_6
       rect:
         serializedVersion: 2
-        x: 565
+        x: 480
         y: 0
-        width: 113
-        height: 98
+        width: 80
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,20 +242,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e89fbaebad7174b4eb77a22901d795b3
-      internalID: -839626934
+      spriteID: 81278ede671caad458bc09d63aa6ec82
+      internalID: 180034036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unit_idle_211000927_6
+      name: Death explosion_7
       rect:
         serializedVersion: 2
-        x: 678
+        x: 560
         y: 0
-        width: 113
-        height: 98
+        width: 80
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -263,20 +263,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfffba72b64967b41a0686c923f0b321
-      internalID: -1612810848
+      spriteID: d8e33ece7091dbb48b4d8b3bc490a2da
+      internalID: 451146202
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: unit_idle_211000927_7
+      name: Death explosion_8
       rect:
         serializedVersion: 2
-        x: 791
+        x: 640
         y: 0
-        width: 113
-        height: 98
+        width: 80
+        height: 67
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -284,8 +284,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79bdb86eac80fb841b66c867b1504f82
-      internalID: -238496585
+      spriteID: ca6f3edcd92956542bc043699f79073b
+      internalID: 1058143338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death explosion_9
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 80
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48cadd70528d94d4bbaad42ef5e3d109
+      internalID: 1305022065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death explosion_10
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 80
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44ea35b4430c91747aec4bca78e28b3d
+      internalID: 511029436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death explosion_11
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 0
+        width: 80
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 216957e6c65e7c946b53cf22a8940a57
+      internalID: 1391393170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death explosion_12
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 80
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1587e0e0f12e23943ad7bfe3f09f7e71
+      internalID: 299897962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death explosion_13
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 0
+        width: 80
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a67f76717f71fb458a8c73598b1f737
+      internalID: -1418373091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Death explosion_5
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 80
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc3576258070edb4bba2c4728e545658
+      internalID: 1124967985
       vertices: []
       indices: 
       edges: []
@@ -301,14 +427,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      unit_idle_211000927_0: -1588642969
-      unit_idle_211000927_1: -1266340458
-      unit_idle_211000927_2: 1348183750
-      unit_idle_211000927_3: -1276235978
-      unit_idle_211000927_4: -1576085364
-      unit_idle_211000927_5: -839626934
-      unit_idle_211000927_6: -1612810848
-      unit_idle_211000927_7: -238496585
+      Death explosion_0: -46110168
+      Death explosion_1: -1402249512
+      Death explosion_10: 511029436
+      Death explosion_11: 1391393170
+      Death explosion_12: 299897962
+      Death explosion_13: -1418373091
+      Death explosion_2: -1543771608
+      Death explosion_3: -1871867558
+      Death explosion_4: -1366718442
+      Death explosion_5: 1124967985
+      Death explosion_6: 180034036
+      Death explosion_7: 451146202
+      Death explosion_8: 1058143338
+      Death explosion_9: 1305022065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

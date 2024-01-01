@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NightBorneBattleState : EnemyState
+public class Phase2BattleShadowLordState : EnemyState
 {
     private Transform player;
-    private NightBorne enemy;
+    private ShadowLord enemy;
     private int moveDir;
 
-    public NightBorneBattleState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, NightBorne enemy) : base(enemyBase, stateMachine, animBoolName)
+    public Phase2BattleShadowLordState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, ShadowLord enemy) : base(enemyBase, stateMachine, animBoolName)
     {
         this.enemy = enemy;
     }
@@ -20,7 +20,9 @@ public class NightBorneBattleState : EnemyState
         player = PlayerManager.instance.player.transform;
         //when the player is dead the enemy will just keep moving and not attack
         if (player.GetComponent<PlayerStats>().currentHP <= 0)
-            stateMachine.ChangeState(enemy.moveState);
+        {
+            stateMachine.ChangeState(enemy.phase2MoveState);
+        }
     }
 
     public override void Exit()
@@ -41,7 +43,13 @@ public class NightBorneBattleState : EnemyState
             {
                 //if the enemy attack is not on cooldown it will attack
                 if (canAttack())
-                    stateMachine.ChangeState(enemy.attackState);
+                {
+                    int pickAttack = Random.Range(1, 11);
+                    if (pickAttack >= 6)
+                        stateMachine.ChangeState(enemy.phase2MagicAttackState);
+                    else
+                        stateMachine.ChangeState(enemy.phase2AttackState);
+                }
             }
 
         }
@@ -50,25 +58,22 @@ public class NightBorneBattleState : EnemyState
             //if the enemy has been in the battle state for too long and does not detect a player anymore or the player
             //is far away from the enemy the enemy will go back to the idle state
             if (stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 10)
-                stateMachine.ChangeState(enemy.idleState);
+            {
+                stateMachine.ChangeState(enemy.phase2IdleState);
+            }
         }
 
         //if the player is on the right of the enemy the enemy will move to the right
-        if (player.position.x > enemy.transform.position.x)
-            moveDir = 1;
-        //if the player is on the left of the enemy the enemy will move to the left
-        else if (player.position.x < enemy.transform.position.x)
-            moveDir = -1;
-
-        if (Vector2.Distance(player.transform.position, enemy.transform.position) < 0.5)
         {
-            //if the enemy attack is not on cooldown it will attack
-            if (canAttack())
-                stateMachine.ChangeState(enemy.attackState);
+            if (player.position.x > enemy.transform.position.x)
+                moveDir = 1;
+            //if the player is on the left of the enemy the enemy will move to the left
+            else if (player.position.x < enemy.transform.position.x)
+                moveDir = -1;
         }
-        else
-            //makes the enemy move forward
-            enemy.setVelocity(enemy.moveSpeed * moveDir, rigidbody2D.velocity.y);
+
+        //makes the enemy move forward
+        enemy.setVelocity(enemy.moveSpeed * moveDir, rigidbody2D.velocity.y);
     }
 
     private bool canAttack()

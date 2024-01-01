@@ -19,6 +19,7 @@ public class SkeletonBattleState : EnemyState
         base.Enter();
 
         player = PlayerManager.instance.player.transform;
+        //when the player is dead the enemy will just keep moving and not attack
         if (player.GetComponent<PlayerStats>().currentHP <= 0)
             stateMachine.ChangeState(enemy.moveState);
     }
@@ -60,8 +61,15 @@ public class SkeletonBattleState : EnemyState
         else if (player.position.x < enemy.transform.position.x)
             moveDir = -1;
 
-        //makes the enemy move forward
-        enemy.setVelocity(enemy.moveSpeed * moveDir,rigidbody2D.velocity.y);
+        if (Vector2.Distance(player.transform.position, enemy.transform.position) < 0.5)
+        {
+            //if the enemy attack is not on cooldown it will attack
+            if (canAttack())
+                stateMachine.ChangeState(enemy.attackState);
+        }
+        else
+            //makes the enemy move forward
+            enemy.setVelocity(enemy.moveSpeed * moveDir,rigidbody2D.velocity.y);
     }
 
     private bool canAttack()

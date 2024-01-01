@@ -30,6 +30,11 @@ public class ShadowLordGroundedState : EnemyState
         base.Update();
         //if the enemy detects the player infront or right behind them they will enter the battle state
         if (enemy.isPlayerDetected() || Vector2.Distance(enemy.transform.position, player.position) < 2)
-            stateMachine.ChangeState(enemy.battleState);
+        {
+            if (enemy.BossPhase == 1)
+                stateMachine.ChangeState(enemy.battleState);
+            else
+                stateMachine.ChangeState(enemy.phase2BattleState);
+        }
     }
 }

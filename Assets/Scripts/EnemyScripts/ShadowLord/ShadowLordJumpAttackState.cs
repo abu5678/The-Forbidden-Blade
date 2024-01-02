@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShadowLordJumpAttackState : EnemyState
 {
     private ShadowLord enemy;
+    private EnemyStats stats;
     public ShadowLordJumpAttackState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName, ShadowLord enemy) : base(enemyBase, stateMachine, animBoolName)
     {
         this.enemy = enemy;
@@ -13,14 +14,19 @@ public class ShadowLordJumpAttackState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        stats = enemy.GetComponent<EnemyStats>();
+        enemy.stats.makeInvincible(true);
+        //doubles damage for jump attack
+        enemy.stats.damage.setBaseValue(enemy.originalDamage);
     }
 
     public override void Exit()
     {
         base.Exit();
-
+        enemy.stats.makeInvincible(false);
         //sets the last time attacked to the current time once the enemy exits the attack state
         enemy.lastTimeAttacked = Time.time;
+        enemy.stats.damage.setBaseValue(-enemy.originalDamage);
     }
 
     public override void Update()

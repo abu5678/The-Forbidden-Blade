@@ -72,7 +72,7 @@ public class ShadowLordBattleState : EnemyState
             moveDir = -1;
 
         //checks to see if the player is right on top of the enemy they will attack them
-        if (Vector2.Distance(player.transform.position, enemy.transform.position) < 0.5)
+        if (Vector2.Distance(player.transform.position, enemy.transform.position) < 0.4)
         {
             //if the enemy attack is not on cooldown it will attack
             if (canAttack())

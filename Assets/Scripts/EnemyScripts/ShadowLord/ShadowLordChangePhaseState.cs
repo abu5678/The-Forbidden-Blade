@@ -19,6 +19,8 @@ public class ShadowLordChangePhaseState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        //make him invincible when changing phases
+        enemy.closeCounterAttackWindow();
         stats = enemy.GetComponent<EnemyStats>();
         enemy.stats.makeInvincible(true);
     }
@@ -34,7 +36,7 @@ public class ShadowLordChangePhaseState : EnemyState
         if (triggerCalled)
         {
             enemy.stats.makeInvincible(false);
-            stateMachine.ChangeState(enemy.phase2IdleState);
+            stateMachine.ChangeState(enemy.phase2BattleState);
         }
     }
 }

@@ -6,6 +6,12 @@ public class ShadowLord : Enemy
 {
     [SerializeField] private Animator animator;
     public int BossPhase = 1;
+    public GameObject shadowAttack;
+    private Vector3 shadowAttackSpawnLocation;
+    public int originalDamage;
+    [SerializeField]private float numOfMagicAttacks;
+    public int numOfAttacks;
+
     #region states
     public ShadowLordIdleState idleState { get; private set; }
     public ShadowLordMoveState moveState { get; private set; }
@@ -18,7 +24,7 @@ public class ShadowLord : Enemy
     public Phase2AttackShadowLordState phase2AttackState { get; private set; }
     public Phase2DieShadowLordState phase2DeadState { get; private set; }
     public Phase2IdleShadowLordState phase2IdleState { get; private set; }
-    public Phase2MagicAttackShadowLordState phase2MagicAttackState {  get; private set; }
+    public Phase2MagicAttackShadowLordState phase2MagicAttackState { get; private set; }
     public Phase2MoveShadowLordState phase2MoveState { get; private set; }
     public Phase2StunnedShadowLordState phase2StunnedState { get; private set; }
     public Phase2BattleShadowLordState phase2BattleState { get; private set; }
@@ -48,12 +54,13 @@ public class ShadowLord : Enemy
     {
         base.Start();
         stateMachine.initialise(idleState);
+        originalDamage = this.stats.damage.getBaseValue();
     }
 
     protected override void Update()
     {
         base.Update();
-        if(BossPhase==1)
+        if (BossPhase == 1)
             changePhase();
     }
 
@@ -70,17 +77,26 @@ public class ShadowLord : Enemy
         }
         return false;
     }
-    private void CheckJumpAttack()
-    {
-        if (animator.GetBool("JumpAttack"))
-            this.stats.damage.setBaseValue(this.stats.damage.getBaseValue() * 2);
-    }
+
     public override void die()
     {
         base.die();
         stateMachine.ChangeState(phase2DeadState);
     }
 
+    public void createShadowAttack()
+    {
+        for (int i = 0; i < numOfMagicAttacks; i++)
+        {
+            float spawnAttackX = Random.Range(110.5f, 133.5f);
+            shadowAttackSpawnLocation = new Vector3(spawnAttackX, 1.5f, 0);
+            Instantiate(shadowAttack, shadowAttackSpawnLocation, Quaternion.identity);
+        }
+    }
+    public void stopShadowAttack()
+    {
+        CancelInvoke();
+    }
 
 
     private void changePhase()

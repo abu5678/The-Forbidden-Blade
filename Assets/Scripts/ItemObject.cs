@@ -7,7 +7,7 @@ public class ItemObject : MonoBehaviour
     private Player player;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private ItemData itemData;
-    private int healthAmount = 50;
+    private int healthAmount = 40;
 
     private void Start()
     {

@@ -15,7 +15,7 @@ public class PlayerStats : EntityStats
     public override void takeDamage(int damageTaken)
     {
         base.takeDamage(damageTaken);
-        if (damageTaken > maxHP.getValue() * 0.25f)
+        if (damageTaken >= maxHP.getValue() * 0.15f)
             player.entityFX.ScreenShake(player.entityFX.highDamageImpactShake);
     }
 

@@ -26,7 +26,7 @@ public class NightBorneMoveState : NightBorneGroundedState
 
         //checks to see if there is a wall infront or if there is no more platform to walk on since the detections are a bit infront
         //of the enemy, it will make the enemy flip and return to idle
-        if (enemy.isWallDetected() || !enemy.IsGroundDetected())
+        if (enemy.isWallDetected() || !enemy.IsGroundDetected() || enemy.IsSpikesDetected())
         {
             enemy.FlipCharacter();
             stateMachine.ChangeState(enemy.idleState);

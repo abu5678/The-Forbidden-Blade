@@ -21,6 +21,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected Transform wallCheck;
     [SerializeField] protected float wallCheckDistance;
     [SerializeField] protected LayerMask whatIsGround;
+    [SerializeField] protected LayerMask whatIsSpikes;
     #endregion
 
     #region Components
@@ -91,6 +92,14 @@ public class Entity : MonoBehaviour
     {
         return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
     }
+
+    //check to see if there are spikes
+    public virtual bool IsSpikesDetected()
+    {
+        return Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsSpikes);
+    }
+
+
 
     //checks to see if the character is hitting a wall
     public virtual bool isWallDetected()

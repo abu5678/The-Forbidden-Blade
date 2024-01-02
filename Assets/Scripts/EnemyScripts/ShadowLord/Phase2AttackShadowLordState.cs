@@ -31,6 +31,6 @@ public class Phase2AttackShadowLordState : EnemyState
 
         //once tha animation is over triggered called will be true and the enemy will enter the battle state again
         if (triggerCalled)
-            stateMachine.ChangeState(enemy.battleState);
+            stateMachine.ChangeState(enemy.phase2BattleState);
     }
 }

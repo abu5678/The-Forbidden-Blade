@@ -68,7 +68,7 @@ public class Enemy : Entity
     }
     public virtual RaycastHit2D isPlayerDetected()
     {
-        float playerDistanceCheck = 50;
+        float playerDistanceCheck = 30;
         //makes it so that the enemy can detect the player if they are within range and facing the player
         RaycastHit2D playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, playerDistanceCheck, whatIsPlayer);
 
